@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
+import './components/TodoComponents/Todo.css';
 
 const tasks = [
   {
@@ -47,7 +47,8 @@ class App extends React.Component {
       };
     }
 
-toggleItem = clickedId => {
+toggleTodo = clickedId => {
+  console.log("helloooo")
     const newTodoList = this.state.todoList.map(todo => {
       if (todo.id === clickedId) {
         return {
@@ -75,6 +76,16 @@ toggleItem = clickedId => {
     });
   };
 
+  clearCompleted = () => {
+    const newTodoList = this.state.todoList.filter(todo => {
+        return !todo.completed
+      });
+      this.setState({
+        todoList: newTodoList
+      })
+    }
+
+
   render() {
     return (
       <div className='App'>
@@ -82,7 +93,8 @@ toggleItem = clickedId => {
         <TodoForm addNewTodo={this.addNewTodo}/>
         <TodoList
           tasks={this.state.todoList}
-          toggleItem={this.toggleItem}
+          toggleTodo={this.toggleTodo}
+          clearCompleted={this.clearCompleted}
           />
       </div>
     );
